@@ -1,0 +1,8 @@
+body {
+  font-size: 2.0em;
+}
+
+.node {
+  height: 86vh;
+  overflow: auto;
+}
