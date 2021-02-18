@@ -6,3 +6,7 @@ body {
   height: 86vh;
   overflow: auto;
 }
+
+.node-error {
+  font-size: 0.5em;
+}
