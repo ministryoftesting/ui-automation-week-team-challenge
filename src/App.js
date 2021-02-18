@@ -4,7 +4,42 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Node from './Node';
 
+import useInterval from './useInterval';
+import { useEffect, useState } from 'react';
+
 function App() {
+
+  const [monitorData, setMonitorData] = useState({ nodes : [] });
+
+  const pollForData = () => {
+    setMonitorData({
+      transactions : 1234567,
+      timestamp : '2012-02-01 12:00pm',
+      nodes : [
+        {
+          name : 'Node 1',
+          level : 'ok'
+        },{
+          name : 'Node 2',
+          level : 'warning',
+          error : 'Something is looking a bit shakey'
+        },{
+          name : 'Node 3',
+          level : 'error',
+          error : 'Something is very very broken'
+        }
+      ]
+    });
+  }
+
+  useEffect(() => {
+    pollForData();
+  })
+
+  useInterval(async () => {
+    await pollForData();
+  }, 2000);
+
   return (
     <div className='App'>
       <div>
@@ -15,16 +50,16 @@ function App() {
           </Col>
         </Row>
         <Row>
-          <Node nodeDetails={{'level' : 'ok'}} />
-          <Node nodeDetails={{'level' : 'warning', error : 'This is an error message'}}/>
-          <Node nodeDetails={{'level' : 'error', error : 'This is an error message'}}/>
+          {monitorData.nodes.map((item, i) => {
+            return <Node nodeDetails={item} key={i} />
+          })}
         </Row>
         <Row className='h-100'>
           <Col className='border'>
-            <p><strong>Transactions:</strong> <span className='float-right'>124911</span></p>
+            <p><strong>Transactions:</strong> <span className='float-right'>{monitorData.transactions}</span></p>
           </Col>
           <Col className='border'>
-            <p><strong>Timestamp:</strong> <span className='float-right'>2012-02-01 12:00pm</span></p>
+            <p><strong>Timestamp:</strong> <span className='float-right'>{monitorData.timestamp}</span></p>
           </Col>
         </Row>
       </Container>

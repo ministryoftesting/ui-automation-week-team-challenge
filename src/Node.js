@@ -30,7 +30,7 @@ function Node({nodeDetails}){
 
     return(
         <Col className={nodeClassLevel}>
-            <p className='text-center mt-5'>Node 3 - {nodeDetails.level}</p>
+            <p className='text-center mt-5'>{nodeDetails.name}: {nodeDetails.level}</p>
             {nodeErrorMessage}
           </Col>
     )
