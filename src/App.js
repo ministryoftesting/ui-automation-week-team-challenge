@@ -11,25 +11,19 @@ function App() {
 
   const [monitorData, setMonitorData] = useState({ nodes : [] });
 
-  const pollForData = () => {
-    setMonitorData({
-      transactions : 1234567,
-      timestamp : '2012-02-01 12:00pm',
-      nodes : [
-        {
-          name : 'Node 1',
-          level : 'ok'
-        },{
-          name : 'Node 2',
-          level : 'warning',
-          error : 'Something is looking a bit shakey'
-        },{
-          name : 'Node 3',
-          level : 'error',
-          error : 'Something is very very broken'
-        }
-      ]
+  const pollForData = async () => {
+    fetch('http://localhost:8080/monitor/', {
+      mode: 'cors',
+      method: 'GET',
+      headers: {
+          'Accept': 'application/json'
+      }      
+    })
+    .then(res => res.json())
+    .then(res => {
+      setMonitorData(res);
     });
+
   }
 
   useEffect(() => {
