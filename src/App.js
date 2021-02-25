@@ -6,13 +6,15 @@ import Node from './Node';
 
 import useInterval from './useInterval';
 import { useEffect, useState } from 'react';
+import CONFIG from './config.json';
 
 function App() {
-
+  
   const [monitorData, setMonitorData] = useState({ nodes : [] });
+  const [timestamp, setTimeStamp] = useState('');
 
   const pollForData = async () => {
-    fetch('http://localhost:8080/monitor/', {
+    fetch(CONFIG.host + '/monitor/', {
       mode: 'cors',
       method: 'GET',
       headers: {
@@ -21,18 +23,20 @@ function App() {
     })
     .then(res => res.json())
     .then(res => {
+      setTimeStamp(new Date().toUTCString());
       setMonitorData(res);
     });
-
   }
 
   useEffect(() => {
-    pollForData();
+    if(monitorData.nodes.length === 0){
+      pollForData();
+    }
   })
 
   useInterval(async () => {
     await pollForData();
-  }, 2000);
+  }, 5000);
 
   return (
     <div className='App'>
@@ -53,7 +57,7 @@ function App() {
             <p><strong>Transactions:</strong> <span className='float-right'>{monitorData.transactions}</span></p>
           </Col>
           <Col className='border'>
-            <p><strong>Timestamp:</strong> <span className='float-right'>{monitorData.timestamp}</span></p>
+            <p><strong>Timestamp:</strong> <span className='float-right'>{timestamp}</span></p>
           </Col>
         </Row>
       </Container>
