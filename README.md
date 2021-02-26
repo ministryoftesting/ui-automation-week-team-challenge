@@ -16,21 +16,41 @@ The application can be accessed at: `http://localhost:3000/`
 
 ## The challenge
 
-### Context 
+### Introduction:
+
+Spend any time working on automated checks, whether it’s UI or not, you quickly notice that there are a lot of different things that need managing. Data, assertions, reports, execution, etc. all need to be thought about and implemented to create automated checks that are valuable to a team. That’s why in this challenge, as a Team, you’re going to build a solution that requires you to think deeply about the type of framework or tool you want to use in your automation.
+
+### Purpose:
+
+This challenge gets you thinking about the full lifecycle or anatomy of UI automation. To succeed you will need to consider:
+
+* How you’re going to manage data?
+* How you’re going to assess the information displayed on the UI?
+* What information you’re going to report?
+* Where are you going to run it?
+
+### Scenarios:
+
+#### Context 
 The challenge application contains a GUI that reads data from a third party application and renders it in a dashboard for the user to view. The monitor app shows details of nodes that are running 
 
-### Your challenge
-
-Your task is to build an automated solution that will open the monitor app and test what the monitor GUI looks like in a set of different scenarios:
-
-### Scenario 1:
-
-The monitor renders three nodes all appearing green
-
-### Scenario 2:
+#### Scenario 1:
 
 The monitor renders three nodes one showing green, one showing amber (with warning) and one showing red (with error)
 
-### Scenario 3: 
+##### Purpose
+The goal for this scenario is to establish a framework that can open the browser and check the different nodes
+
+#### Scenario 2:
+
+The monitor renders three nodes all appearing green
+
+##### Purpose
+The goal for this scenario is to determine how to update the UI when you have no control over the third party API
+
+#### Scenario 3: 
 
 The monitor renders six nodes with at least one node in green state, one amber state and one red state
+
+##### Purpose
+The goal for this scenario is to complete your framework to handle multiple scenarios of checking.
